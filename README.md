@@ -1,7 +1,7 @@
 # March Madness Brakcet Builder
 
 ## How does the program work?
-The program requires that you know the likelihood of any team beating any other team. These kinds of numbers can generally be found online, at least for the first round.
+There are some key differences between the C program the python program. The python program gets BPI information from ESPN's API, and uses that data to calculate the probability of a certain team beating a certain other team. The C program requires the user to input the probability of a certain team beating a certain other team.
 
 The program generates a random number and compares that number to the chance of Team A winning. If the random number is greater than the chance of Team A winning, then we predict that Team B will win. If the random number is less than the chance of Team A winning, then we predict that Team A will win.
 
