@@ -5,11 +5,16 @@ from predictors import fetch_bpi, win_probability
 
 BPI = {}
 
+def print_usage():
+    print('Interactive mode accepts team nickname, abbreviation, or short display name.')
+    print('Examples: Florida, florida, FLA, fla')
+    print('Enter "quit" at any time to terminate the program\n')
+
 def main():
-    print('Enter "quit" at any time to terminate the program')
+    print_usage()
     while(True):
         # Get team 1 data
-        team1 = input("Enter the abbreviation of the first team: ")
+        team1 = input("Enter the first team: ")
         if team1 == "quit":
             break
         bpi1 = 0
@@ -22,7 +27,7 @@ def main():
             bpi1 = float(bpi_str)
 
         # Get team 2 data
-        team2 = input("Enter the abbreviation of the second team: ")
+        team2 = input("Enter the second team: ")
         if team2 == "quit":
             break
         bpi2 = 0
@@ -56,7 +61,5 @@ if __name__ == "__main__":
     if (len(argv) == 1):
         BPI = fetch_bpi(364) # Get BPIs for all 364 D1 NCAA basketball teams
         main()
-    elif (len(argv) == 4):
-        print(predict_winner(argv[1], argv[2], float(argv[3])))
     else:
-        print("INVALID USAGE")
+        print_usage()
