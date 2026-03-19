@@ -1,4 +1,3 @@
-import requests
 from typing import Optional
 
 class TeamBPIMap(dict[str, float]):
@@ -21,6 +20,11 @@ class TeamBPIMap(dict[str, float]):
 
 
 def fetch_bpi(num_teams: int = 50, page: int = 1) -> TeamBPIMap:
+    try:
+        import requests
+    except ImportError as exc:
+        raise RuntimeError('Fetching BPI data requires the "requests" package to be installed.') from exc
+
     url = f"https://site.web.api.espn.com/apis/fitt/v3/sports/basketball/mens-college-basketball/powerindex?region=us&lang=en&groups=50&limit={num_teams}&page={page}&sort=bpi.bpi%3Adesc"
     response = requests.get(url)
     

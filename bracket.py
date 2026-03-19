@@ -6,12 +6,15 @@ from predictors import fetch_bpi, win_probability
 BPI = {}
 
 def print_usage():
-    print('Interactive mode accepts team nickname, abbreviation, or short display name.')
+    print('Usage: python3 bracket.py [-m]\n')
+    print('  -m fetches BPI data from the ESPN API before interactive mode starts.')
+    print('  Without -m, you will be prompted to enter BPI values manually.')
+    print('\nInteractive mode accepts team nickname, abbreviation, or short display name.')
     print('Examples: Florida, florida, FLA, fla')
-    print('Enter "quit" at any time to terminate the program\n')
+    print('\nEnter "quit" at any time to terminate the program\n')
 
 def main():
-    print_usage()
+    print('Enter "quit" at any time to terminate the program\n')
     while(True):
         # Get team 1 data
         team1 = input("Enter the first team: ")
@@ -59,7 +62,16 @@ def roll():
 
 if __name__ == "__main__":
     if (len(argv) == 1):
-        BPI = fetch_bpi(364) # Get BPIs for all 364 D1 NCAA basketball teams
         main()
-    else:
+    elif (len(argv) == 2 and argv[1] == "-m"):
+        try:
+            BPI = fetch_bpi(364) # Get BPIs for all 364 D1 NCAA basketball teams
+        except RuntimeError as error:
+            print(error)
+            print('Run without -m to enter BPI values manually.')
+        else:
+            main()
+    elif (len(argv) == 2 and argv[1] == "--help"):
         print_usage()
+    else:
+        print('Invalid usage. Run `python3 bracket.py --help` for details.')
